@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    color: #2b434e;
+    font-family: "Work sans", "sans-serif";
+    font-size: 14px;
+  }
+  svg {
+    @apply hover:cursor-pointer;
+  }
+}
+
+@layer utilities {
+  .input,
+  .checkbox {
+    @apply border-solid border-[1px];
+  }
+  .input {
+    @apply h-[40px] border-[#E9ECF5];
+  }
+  .checkbox {
+    @apply border-[#E9ECF5] rounded-sm;
+  }
+  .input:focus {
+    @apply outline-none border-[#C3CAD9];
+  }
+  .checkbox:checked {
+    @apply appearance-none bg-[#FFC107];
+  }
+
+  /* Table styles */
+  .header-border {
+    @apply border-[#E9ECF5] border-solid border-[1px] h-[56.04px];
+  }
+  .year-header,
+  .semester-header {
+    @apply flex w-[715px] h-[56.04px] p-4;
+  }
+  .year-header {
+    @apply bg-[#E4EBF5];
+  }
+  .semester-header,
+  .semester-content {
+    @apply px-12;
+  }
+  .year-header--title,
+  .semester-header--title {
+    @apply self-center ml-3;
+  }
+  .year-header--title {
+    @apply font-bold;
+  }
+  .semester-table-header {
+    @apply font-semibold p-4;
+  }
+  /* DnD Search section */
+  .foot-button,
+  .foot-button--variant {
+    @apply border-solid border-[1px] p-2 w-24;
+  }
+  .foot-button {
+    @apply text-[#FFC107] border-[#FFC107];
+  }
+  .foot-button--variant {
+    @apply text-white bg-[#FFC107];
+  }
+
+  /* Subjects */
+  .first-subject,
+  .subject {
+    @apply bg-[#E9ECF5] max-w-max p-1 ml-6 m-2;
+  }
+  .first-subject {
+    @apply mt-4;
+  }
+  .subject {
+    @apply mt-4;
+  }
+}
