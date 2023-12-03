@@ -4,7 +4,7 @@ const TopMenu = () => {
   return (
     <div className="flex justify-between my-2">
       <img
-        src="src/assets/image 12.png"
+        src="https://mlv2av5beeba.i.optimole.com/co-ZpyQ-iA0Rzjrd/cb:muaBiJcc.luPxm7Wo/w:auto/id:0c38dffe77a3d3bf3d7d97d9156235a6/directUpload/image-12.png"
         alt="Logo"
         className="max-w-[63px] max-h-[60px] ml-12"
       />
