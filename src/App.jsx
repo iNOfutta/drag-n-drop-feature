@@ -5,7 +5,7 @@ import CurricularPlan from "./Components/CurricularPlan";
 
 function App() {
   return (
-    <div className={"bg-[#f7f5f5]"}>
+    <div className={"bg-[#E9ECF5]"}>
       <TopMenu />
       <SideMenu>
         <CurricularPlanForm />
