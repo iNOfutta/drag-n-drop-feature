@@ -70,7 +70,7 @@ const CurricularPlan = () => {
     },
   ]);
 
-  let inputControllers = Array.from({ length: firstSemester.length }).fill(0).map((item, index) => firstSemester[index].credits);
+  const [inputControllers, setInputControllers] = useState(Array.from({ length: firstSemester.length }).fill(0).map((item, index) => firstSemester[index].credits));
 
 
   //Utils
@@ -102,8 +102,10 @@ const CurricularPlan = () => {
   };
 
   const handleChangeInput = (index) => (ev) => {
-    inputControllers = inputControllers.map((input, i) => i === index ? ev.target.value : input)
-    console.log(inputControllers);
+    setInputControllers(prev => {
+      prev[index] = ev.target.value;
+      return prev
+    });
   };
 
   const handleDelete = (index, field) => {
@@ -265,7 +267,7 @@ const CurricularPlan = () => {
                             type="number"
                             onChange={handleChangeInput(index)}
                             className="max-w-min w-12 focus:outline-none"
-                            placeholder={parseInt(semester?.credits) ? semester?.credits : ""}
+                            placeholder={parseInt(inputControllers[index]) ? inputControllers[index] : ""}
                           />
                         ) : (
                           <span className="p-4">{parseInt(semester?.credits) ? semester?.credits : ""}</span>
