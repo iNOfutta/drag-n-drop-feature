@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import {
   ActiveSemesterIcon,
   ActiveYearIcon,
@@ -23,7 +23,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
-import Subjects, { DroppableContainer, SortableItem } from "./Subjects";
+import { DroppableContainer, SortableItem } from "./Subjects";
 import { v4 as uuidv4 } from "uuid";
 
 const CurricularPlan = () => {
@@ -31,57 +31,7 @@ const CurricularPlan = () => {
   const [toggleSemester, setToggleSemester] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
-  const inputRef = useRef(null);
-  const indexRef = useRef(0);
 
-  //Utils
-  const generateSplittableID = (value) => `${value}*${uuidv4()}`;
-
-  const handleToggleYear = () => {
-    setToggleYear((prev) => !prev);
-  };
-  const handleToggleSemester = () => {
-    setToggleSemester((prev) => !prev);
-  };
-
-  const toggleIsEditing = () => {
-    setIsEditing((prev) => !prev);
-
-    if (inputRef?.current?.value) {
-      setFirstSemester((prev) => {
-        const newSemester = [...prev];
-        newSemester[indexRef.current]["credits"] = inputRef.current.value;
-        inputRef.current.value = null;
-        indexRef.current = null;
-
-        return newSemester;
-      });
-    }
-  };
-
-  const handleChangeInput = (index) => (ev) => {
-    inputRef.current.value = ev.target.value;
-    indexRef.current = index;
-  };
-
-  const handleDelete = (index, field) => {
-    setFirstSemester((prev) => {
-      const newSemester = [...prev];
-      newSemester[index][field] = "";
-      return newSemester;
-    });
-  };
-
-  const handleCheck = (index) => (ev) => {
-    if (!isEditing) return;
-    setFirstSemester((prev) => {
-      const newSemester = [...prev];
-      newSemester[index]["discarded"] = ev.target.checked;
-      return newSemester;
-    });
-  };
-
-  const years = ["2º Ano", "3º Ano", "4º Ano", "5º Ano", "6º Ano"];
   const [firstSemester, setFirstSemester] = useState([
     {
       subject: "Mathematics",
@@ -119,6 +69,62 @@ const CurricularPlan = () => {
       id: "151617",
     },
   ]);
+
+  let inputControllers = Array.from({ length: firstSemester.length }).fill(0).map((item, index) => firstSemester[index].credits);
+
+
+  //Utils
+  const generateSplittableID = (value) => `${value}*${uuidv4()}`;
+
+  const truncateText = (str, length = 20) => str.length > length ? str.substring(0, length) + "..." : str;
+
+  const handleToggleYear = () => {
+    setToggleYear((prev) => !prev);
+  };
+  const handleToggleSemester = () => {
+    setToggleSemester((prev) => !prev);
+  };
+
+  const toggleIsEditing = () => {
+    setIsEditing((prev) => !prev);
+
+    if (isEditing) {
+      setFirstSemester((prev) => {
+        const newSemester = [...prev];
+        newSemester.forEach((item, index) => {
+          if (item.credits !== inputControllers[index]) {
+            item.credits = inputControllers[index]
+          }
+        })
+        return newSemester;
+      });
+    }
+  };
+
+  const handleChangeInput = (index) => (ev) => {
+    inputControllers = inputControllers.map((input, i) => i === index ? ev.target.value : input)
+    console.log(inputControllers);
+  };
+
+  const handleDelete = (index, field) => {
+    setFirstSemester((prev) => {
+      const newSemester = [...prev];
+      newSemester[index][field] = "";
+      return newSemester;
+    });
+  };
+
+  const handleCheck = (index) => (ev) => {
+    if (!isEditing) return;
+    setFirstSemester((prev) => {
+      const newSemester = [...prev];
+      newSemester[index]["discarded"] = ev.target.checked;
+      return newSemester;
+    });
+  };
+
+  const years = ["2º Ano", "3º Ano", "4º Ano", "5º Ano", "6º Ano"];
+
   const [subjects, setSubjects] = useState([
     "Lorem ipsum dolor sit amet",
     "Tempore inventore dignissimos",
@@ -153,9 +159,6 @@ const CurricularPlan = () => {
     const { active, over } = event;
     const [overName, overDroppable] = over.id.split("*");
     const [activeName, activeDroppable] = active.id.split("*");
-
-    console.log("Actve: ", activeName, activeDroppable);
-    console.log("Over: ", overName, overDroppable);
 
     if (active.id !== over.id) {
       if (overDroppable === "subject") {
@@ -243,7 +246,7 @@ const CurricularPlan = () => {
                                   }}
                                 />
                               )}
-                              <span className="ml-2">{semester.subject}</span>
+                              <span className="ml-2">{truncateText(semester.subject)}</span>
                             </>
                           )}
                         </div>
@@ -256,17 +259,16 @@ const CurricularPlan = () => {
                   <span className="semester-table-header">Créditos</span>
                   {firstSemester.length > 0 &&
                     firstSemester.map((semester, index) => (
-                      <span className="p-4" key={uuidv4()}>
+                      <span className="p-4 self-center" key={uuidv4()}>
                         {isEditing ? (
                           <input
                             type="number"
                             onChange={handleChangeInput(index)}
-                            className="max-w-min w-12 focus:outline-none self-center"
-                            placeholder={semester?.credits}
-                            ref={inputRef}
+                            className="max-w-min w-12 focus:outline-none"
+                            placeholder={parseInt(semester?.credits) ? semester?.credits : ""}
                           />
                         ) : (
-                          <span className="p-4">{semester?.credits}</span>
+                          <span className="p-4">{parseInt(semester?.credits) ? semester?.credits : ""}</span>
                         )}
                       </span>
                     ))}
@@ -283,7 +285,7 @@ const CurricularPlan = () => {
                         `${semester.proceeding}*proceeding`
                       )}
                     >
-                      <div className="flex p-4">
+                      <div className="flex p-4 self-center">
                         {semester.proceeding && (
                           <>
                             {isEditing && (
@@ -294,7 +296,7 @@ const CurricularPlan = () => {
                                 }}
                               />
                             )}
-                            <span className="ml-2">{semester.proceeding}</span>
+                            <span className="ml-2">{truncateText(semester.proceeding)}</span>
                           </>
                         )}
                       </div>
@@ -308,7 +310,7 @@ const CurricularPlan = () => {
                     firstSemester.map((semester, index) => (
                       <input
                         type="checkbox"
-                        className="m-4 w-[20px] h-[20px] checkbox"
+                        className="m-4 w-[20px] h-[20px] checkbox hover:cursor-pointer"
                         key={uuidv4()}
                         checked={semester.discarded}
                         disabled={false}
