@@ -2,7 +2,7 @@ import avatar from "../assets/download.jpeg";
 
 const TopMenu = () => {
   return (
-    <div className="flex justify-between my-2">
+    <div className="flex justify-between my-2 bg-white pb-2">
       <img
         src="https://mlv2av5beeba.i.optimole.com/co-ZpyQ-iA0Rzjrd/cb:muaBiJcc.luPxm7Wo/w:auto/id:0c38dffe77a3d3bf3d7d97d9156235a6/directUpload/image-12.png"
         alt="Logo"
@@ -10,8 +10,8 @@ const TopMenu = () => {
       />
 
       <div className="flex justify-center mr-8">
-        <div className="flex mr-12">
-          <p className="self-center mr-2">Português (PT)</p>
+        <div className="flex mr-16 bg-[#E5E5E5] p-4 h-10 text-[16px] self-center">
+          <p className="self-center mr-2 ">Português (PT)</p>
           <svg
             width="10"
             height="10"

@@ -198,9 +198,9 @@ const CurricularPlan = () => {
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
     >
-      <div className="mt-20 font-medium flex justify-between">
+      <div className="pt-8 font-medium flex justify-between bg-white pl-8 pr-6">
         <div className="mr-6">
-          <div className="year-header">
+          <div className="year-header ">
             {toggleYear ? (
               <ActiveYearIcon handleClick={handleToggleYear} />
             ) : (
@@ -212,7 +212,7 @@ const CurricularPlan = () => {
           {/* 2nd semester table */}
           <div>
             {toggleYear && (
-              <div className="semester-header input">
+              <div className="semester-header input bg-[#F7F9FC]">
                 {toggleSemester ? (
                   <ActiveSemesterIcon handleClick={handleToggleSemester} />
                 ) : (
@@ -318,7 +318,7 @@ const CurricularPlan = () => {
                 </div>
 
                 <div className="flex flex-col">
-                  <div className="border-[1px] border-[#FFC107] border-solid p-2 my-2 m-4">
+                  <div className="border border-[#FFC107] border-solid p-2 my-2 m-4">
                     <EditIcon handleClick={toggleIsEditing} />
                   </div>
 
@@ -337,7 +337,7 @@ const CurricularPlan = () => {
             {/*  */}
           </div>
           {toggleYear && (
-            <div className="semester-header input">
+            <div className="semester-header input bg-[#F7F9FC]">
               <ActiveYearIcon />
               <h2 className="semester-header--title">2º Semestre</h2>
             </div>
@@ -373,20 +373,22 @@ const CurricularPlan = () => {
                 </div>
               </div>
             </div>
-            <SortableContext
-              items={subjects}
-              strategy={verticalListSortingStrategy}
-            >
-              {subjects.map((subject, index) => (
-                <SortableItem
-                  key={generateSplittableID(`${subject}*${index}`)}
-                  id={generateSplittableID(`${subject}*${index}`)}
-                  index={index}
-                  styles={index === 0 ? "first-subject" : "subject"}
-                  isDragDisabled={!isEditing}
-                />
-              ))}
-            </SortableContext>
+            <div className={"bg-[#F7F9FC] mt-[-2px] pb-4 pt-4 border border-solid border-[#E9ECF5]"}>
+              <SortableContext
+                items={subjects}
+                strategy={verticalListSortingStrategy}
+              >
+                {subjects.map((subject, index) => (
+                  <SortableItem
+                    key={generateSplittableID(`${subject}*${index}`)}
+                    id={generateSplittableID(`${subject}*${index}`)}
+                    index={index}
+                    styles={index === 0 ? "first-subject" : "subject"}
+                    isDragDisabled={!isEditing}
+                  />
+                ))}
+              </SortableContext>
+            </div>
           </div>
         )}
       </div>

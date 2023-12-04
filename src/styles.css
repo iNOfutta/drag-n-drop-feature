@@ -16,7 +16,7 @@
 @layer utilities {
   .input,
   .checkbox {
-    @apply border-solid border-[1px];
+    @apply border-solid border;
   }
   .input {
     @apply h-[40px] border-[#E9ECF5];
@@ -54,7 +54,7 @@
     @apply font-bold;
   }
   .semester-table-header {
-    @apply font-semibold p-4;
+    @apply font-semibold p-4 border-[#E9ECF5] border-b-2 border-solid;
   }
   /* DnD Search section */
   .foot-button,
@@ -71,10 +71,10 @@
   /* Subjects */
   .first-subject,
   .subject {
-    @apply bg-[#E9ECF5] max-w-max p-1 ml-6 m-2;
+    @apply bg-[#E9ECF5] max-w-max p-2 ml-6 m-2 rounded-md text-[#42474B];
   }
   .first-subject {
-    @apply mt-4;
+    @apply mt-2;
   }
   .subject {
     @apply mt-4;

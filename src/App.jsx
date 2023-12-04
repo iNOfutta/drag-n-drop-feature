@@ -5,13 +5,13 @@ import CurricularPlan from "./Components/CurricularPlan";
 
 function App() {
   return (
-    <>
+    <div className={"bg-[#f7f5f5]"}>
       <TopMenu />
       <SideMenu>
         <CurricularPlanForm />
         <CurricularPlan />
       </SideMenu>
-    </>
+    </div>
   );
 }
 

@@ -69,8 +69,8 @@ const SideMenu = ({ children }) => {
   };
 
   return (
-    <div className="mt-6 flex">
-      <div>
+    <div className="mt-[-5px] flex">
+      <div className="bg-white pt-4 pr-3">
         {mainMenuData.map((menu, index) => {
           const { subMenuData: subMenu } = menu;
           return (
@@ -89,9 +89,9 @@ const SideMenu = ({ children }) => {
                         {/* Hard coding to set Plano curricular as active link */}
                         {i === 3
                           ? addStylesBeforeRender(
-                              "self-center text-tertiary",
-                              subMenu.icon
-                            )
+                            "self-center text-tertiary",
+                            subMenu.icon
+                          )
                           : addStylesBeforeRender("self-center", subMenu.icon)}
                         <span className="self-center ml-1">{subMenu.name}</span>
                       </div>
@@ -103,7 +103,7 @@ const SideMenu = ({ children }) => {
         })}
       </div>
 
-      <div className="mx-20 mt-20 flex flex-col">{children}</div>
+      <div className="mx-8 mt-8 flex flex-col w-full ml-6">{children}</div>
     </div>
   );
 };

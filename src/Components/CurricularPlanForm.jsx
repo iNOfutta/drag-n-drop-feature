@@ -2,7 +2,7 @@ import arrowIcon from "../assets/Icon.png";
 
 const CurricularPlanForm = () => {
   return (
-    <div className="self-center">
+    <div className="self-center mb-2 bg-white w-full p-32 pt-14 pb-10">
       <h1 className="font-semibold text-lg pb-5">Novo plano</h1>
       <form className="flex">
         <div className="flex flex-col">
